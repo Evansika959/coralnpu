@@ -224,3 +224,11 @@ local_repository(
     name = "synthesis_internal",
     path = "../synthesis_internal",
 )
+
+new_local_repository(
+    name = "ext_netlist",
+    path = "/n/badwater/z/anhangli/coralnpu/synth/data",
+    build_file_content = """
+exports_files(["RvvCoreMiniAxi.nl.v"])
+""",
+)
