@@ -63,7 +63,7 @@ verilator_cocotb_model(
 
 verilator_cocotb_model(
     name = "rvv_core_mini_highmem_axi_model",
-    trace = False,
+    trace = True,
     cflags = VERILATOR_BUILD_ARGS,
     hdl_toplevel = "RvvCoreMiniHighmemAxi",
     verilog_source = "//hdl/chisel/src/coralnpu:RvvCoreMiniHighmemAxi.sv",
@@ -411,12 +411,13 @@ cocotb_test_suite(
     name = "rvv_highmem_tests",
     simulators = [
         "verilator",
+        "vcs"
     ],
     testcases = HIGHMEM_TESTCASES,
     testcases_vname = "HIGHMEM_TESTCASES",
     tests_kwargs = {
-        "hdl_toplevel": "RvvCoreMiniHighmemAxi",
-        "waves": False,
+        "hdl_toplevel": "RvvCoreMiniAxi",
+        "waves": True,
         "seed": "42",
         "test_module": ["rvv_highmem_sim.py"],
         "deps": [
@@ -435,6 +436,22 @@ cocotb_test_suite(
         ],
         "size": "large",
     },
+    vcs_build_args = VCS_BUILD_ARGS,
+    vcs_data = [
+            ":wfi_slot_0_highmem.elf",
+            ":wfi_slot_1_highmem.elf",
+            ":wfi_slot_2_highmem.elf",
+            ":wfi_slot_3_highmem.elf",
+            "//tests/cocotb/rvv/ml_ops:rvv_matmul_assembly_highmem.elf",
+            "//tests/cocotb/rvv/ml_ops:rvv_matmul_highmem.elf",
+    ] + [
+        ":coverage_exclude.cfg",
+        ":xprop.cfg"
+    ],
+    vcs_defines = VCS_DEFINES,
+    vcs_test_args = VCS_TEST_ARGS,
+    vcs_verilog_sources = ["@ext_netlist//:RvvCoreMiniAxi.nl.v", 
+                            "@gf22_std_cell_lib//:gf22nsdvlogl20edl116a.v"],
     verilator_model = ":rvv_core_mini_highmem_axi_model",
 )
 
@@ -619,7 +636,7 @@ cocotb_test_suite(
     ],
     vcs_defines = VCS_DEFINES,
     vcs_test_args = VCS_TEST_ARGS,
-    vcs_verilog_sources = ["//hdl/chisel/src/coralnpu:rvv_core_mini_axi_cc_library_verilog"],
+    vcs_verilog_sources = ["@ext_netlist//:RvvCoreMiniAxi.nl.v"],
     verilator_model = ":rvv_core_mini_axi_model",
 )
 
