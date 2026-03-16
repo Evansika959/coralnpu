@@ -450,7 +450,8 @@ cocotb_test_suite(
     ],
     vcs_defines = VCS_DEFINES,
     vcs_test_args = VCS_TEST_ARGS,
-    vcs_verilog_sources = ["@ext_netlist//:RvvCoreMiniAxi.nl.v"],
+    vcs_verilog_sources = ["@ext_netlist//:RvvCoreMiniAxi.nl.v", 
+                            "@gf22_std_cell_lib//:gf22nsdvlogl20edl116a.v"],
     verilator_model = ":rvv_core_mini_highmem_axi_model",
 )
 

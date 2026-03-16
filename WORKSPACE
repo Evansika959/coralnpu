@@ -227,8 +227,13 @@ local_repository(
 
 new_local_repository(
     name = "ext_netlist",
-    path = "/n/badwater/z/anhangli/coralnpu/synth/data",
-    build_file_content = """
-exports_files(["RvvCoreMiniAxi.nl.v"])
-""",
+    path = "/n/deer/z/junyiluo/work/coral_npu/synth/data",
+    build_file_content = """exports_files(["RvvCoreMiniAxi.nl.v"])""",
 )
+
+new_local_repository(
+    name = "gf22_std_cell_lib",
+    path = "/afs/eecs.umich.edu/kits/Synopsys/GF22FDX/2023.06/gf22nsdvlogl20edl116a/DesignWare_logic_libs/globalfoundaries22nhsda/20hd/edl/ulvt/6.01a/verilog/3.0/",
+    build_file_content = """exports_files(["gf22nsdvlogl20edl116a.v"])""",
+)
+
